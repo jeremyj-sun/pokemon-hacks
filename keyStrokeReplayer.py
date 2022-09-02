@@ -23,12 +23,13 @@ if __name__ == "__main__":
     replay_file = input("Enter the name of the keylog file you wish to replay:\n" )
     num_replays = int(input("Enter the desired number of consecutive replays:\n"))
 
-    print("Replaying beginning in 3")
-    time.sleep(1)
-    print("2")
-    time.sleep(1)
-    print("1")
-    time.sleep(1)
+    countdown = 5
+    for i in range(countdown, 0, -1):
+        if i == countdown:
+            print(f"Replay beginning in {countdown}...")
+        else:
+            print(f"{i}...")
+        time.sleep(1)
 
     for _ in range(num_replays):
         with open(replay_file, "r") as f:
