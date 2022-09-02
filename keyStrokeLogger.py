@@ -6,6 +6,7 @@ import config
 
 '''
 Defines a key - duration pair
+Note: "sleep" refers to intervals where no key is held down
 '''
 class KeyEvent:
     def __init__(self, key: str, start_time: float):
@@ -39,6 +40,8 @@ class Keylogger:
     '''
     def on_press_handler(self, keyboard_event : keyboard.KeyboardEvent):
         # Append new key presses only
+        if len(self.log) > 0 and self.log[-1].key == 'sleep':
+            self.log[-1].end_time = datetime.today().timestamp()
         if self.isDown == False:
             self.log.append(KeyEvent(keyboard_event.name, keyboard_event.time))
             self.isDown = True
@@ -50,6 +53,7 @@ class Keylogger:
     def on_release_handler(self, keyboard_event: keyboard.KeyboardEvent):
         self.log[-1].end_time = keyboard_event.time
         self.isDown = False
+        self.log.append(KeyEvent('sleep', datetime.today().timestamp()))
     
     '''
     Create a new a local file and write the current log
@@ -75,6 +79,8 @@ class Keylogger:
             event = keyboard.read_event()
             if event.event_type == keyboard.KEY_DOWN:
                 if event.name == 'esc':
+                    if len(self.log) > 0 and self.log[-1].key == 'sleep':
+                        self.log[-1].end_time = datetime.today().timestamp()
                     break
                 self.on_press_handler(event)
             elif event.event_type == keyboard.KEY_UP:
