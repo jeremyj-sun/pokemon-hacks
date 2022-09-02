@@ -58,3 +58,4 @@ if __name__ == "__main__":
                     time.sleep(duration)
                     keyboard.release(key)
         time.sleep(1)
+    print("Replays finished")
