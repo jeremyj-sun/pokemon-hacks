@@ -51,7 +51,10 @@ if __name__ == "__main__":
                 if key == 'sleep':
                     if ignore_sleeps == False:
                         time.sleep(duration)
+                    else:
+                        time.sleep(0.1)
                 else:
                     keyboard.press(key)
                     time.sleep(duration)
                     keyboard.release(key)
+        time.sleep(1)
