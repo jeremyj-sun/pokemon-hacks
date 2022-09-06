@@ -23,6 +23,7 @@ def parseline(line: str):
 if __name__ == "__main__":
     replay_file = input("Enter the name of the keylog file you wish to replay:\n" )
     num_replays = int(input("Enter the desired number of consecutive replays:\n"))
+    delay = float(input("Add an optional delay (in seconds) to each sleep interval:\n") or "0")
 
     countdown = 5
     for i in range(countdown, 0, -1):
@@ -51,8 +52,7 @@ if __name__ == "__main__":
                 if key == 'sleep':
                     if ignore_sleeps == False:
                         time.sleep(duration)
-                    else:
-                        time.sleep(0.1)
+                    time.sleep(delay)
                 else:
                     keyboard.press(key)
                     time.sleep(duration)
